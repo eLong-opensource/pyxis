@@ -1,0 +1,100 @@
+package pyxis.rpc;
+
+option cc_generic_services = true;
+
+enum ErrorType {
+  kNone = 0;
+  kNotLeader = 1;
+  kNotFound = 2;
+  kSessionExpired = 4;
+  kInvalidArgument = 5;
+  kAgain = 6;
+  kInternal = 7;
+  kExist = 8;
+}
+
+message Error {
+  required ErrorType type = 1;
+  optional bytes data = 2;
+}
+
+message WatchEvent {
+  required string path = 1;
+  required uint32 type = 2;
+}
+
+// for register.
+message RegisterRequest {
+  optional int32 timeout = 1;
+}
+
+// for unregister
+message UnRegisterRequest {
+}
+
+// for ping
+message PingRequest {
+}
+
+// for create
+message CreateRequest {
+  required string path = 1;
+  required int32 flags = 2;
+  optional bytes data = 3;
+}
+
+// for delete
+message DeleteRequest {
+  required string path = 1;
+}
+
+// for stat
+message StatRequest {
+  required string path = 1;
+}
+
+// for read
+message ReadRequest {
+  required string path = 1;
+}
+
+// for write
+message WriteRequest {
+  required string path = 1;
+  required bytes data = 2;
+}
+
+message WatchRequest {
+  optional string path = 1;
+  optional uint32 watch = 2;
+  optional bool recursive = 3;
+}
+
+message Request {
+  // header
+  optional uint64 sid = 1;
+  optional uint64 xid = 2;
+  // body
+  optional RegisterRequest register = 5;
+  optional UnRegisterRequest unregister = 6;
+  optional PingRequest ping = 7;
+  optional CreateRequest create = 8;
+  optional DeleteRequest delete = 9;
+  optional WriteRequest write = 10;
+  optional ReadRequest read = 11;
+  optional StatRequest stat = 12;
+  optional WatchRequest watch = 13;
+}
+
+message Response {
+  optional uint64 xid = 1;
+  optional Error err = 2;
+  optional bytes data = 3;
+  optional WatchEvent watch = 4;
+  optional uint64 sid = 5;
+  optional string path = 6;
+}
+
+service RpcService {
+  rpc Call(Request) returns (Response);
+}

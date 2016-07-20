@@ -1,0 +1,6 @@
+package pyxis.protobuf;
+
+message Packet {
+  required string name = 1;
+  required bytes data = 2;
+}
