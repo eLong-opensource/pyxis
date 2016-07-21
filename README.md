@@ -1,4 +1,4 @@
-### pyxis介绍
+# pyxis介绍
 
 pyxis是一个分布式的，提供以路径node为K值的KV存储的高可用服务。pyxis使用了raft一致性协议。
 
@@ -6,27 +6,20 @@ pyxis使用c++实现，提供go语言封装的客户端。
 
 客户端能够直接通过包函数调用实现节点的增删改查。
 
-### pyxis的编译安装
+# pyxis的编译安装
 
-环境：centos6.4
+## 依赖
 
-安装准备：
+- centos6.4
+- zlib
+- boost1.53.0
 
-    1.安装依赖 gcc,g++,zlib(zlib-devel),scons,boost-1.5.3(boost-devel)
-    
-    2.编译pyxis，需要下载安装第三方依赖库，这些依赖库需要和pyxis所处同一级目录，该目录作为整个项目编译安装的root目录，执行pyxis包内的build.sh脚本,会自动下载安装；
-    
-    下载的依赖库有:
-    1.Blade构建系统
-    2.thirdparty,toft
-    3.raft,muduo,sofa-pbrpc
-    
-安装：
-	  1.执行pyxis包内的build.sh
-	 
-	  2.编译过程需要花费一些时间，编译完成后执行 alt 即能切换至编译的结果存放目录，看到最终的二进制文件。如果alt命令找不到，二进制的目录为blade-bin/pyxis/cmd/pyxisd
-	  
-运行参数:
+## 安装
+
+1. 执行pyxis包内的build.sh
+2. 编译过程需要花费一些时间，编译完成后执行 alt 即能切换至编译的结果存放目录，看到最终的二进制文件。如果alt命令找不到，二进制的目录为blade-bin/pyxis/cmd/pyxisd
+
+# 运行参数
 
 pyxis运行需要设置运行参数，通过--help查看参数说明。
 
@@ -68,7 +61,7 @@ Flags from pyxis/cmd/pyxisd/main.cc:
       type: uint64 default: 1000000
     --snapshotdir (snapshot dir) type: string
       default: "snapshot"
-      
+
  Flags from pyxis/server/store.cc:
     --cache_size (leveldb cache size, in MB) type: int32
       default: 100
@@ -77,11 +70,8 @@ Flags from pyxis/cmd/pyxisd/main.cc:
 
 ```
 
-### pyxis的使用
+# pyxis的使用
 
 pyxis提供go语言实现的客户端,封装了对pyxis节点的增删改查接口。
 
 通过godoc查看包函数，以及操作示例。
-
-
-
